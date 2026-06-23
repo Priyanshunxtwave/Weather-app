@@ -69,11 +69,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     /**
      * Toggle element interactive capabilities during active operations
      */
+   /**
+     * Toggle element interactive capabilities during active operations
+     */
     function toggleFormState(isLoading) {
-        searchInput.disabled = isLoading;
-        searchSubmitBtn.disabled = isLoading;
-        clearSearchBtn.disabled = isLoading;
+    searchInput.disabled = isLoading;
+    searchSubmitBtn.disabled = isLoading;
+    clearSearchBtn.disabled = isLoading;
+    
+    // FIX: Only clear previous errors when we are STARTING a new search
+    if (isLoading) {
         errorBanner.hidden = true;
-        loadingSpinner.hidden = !isLoading;
     }
+    
+    loadingSpinner.hidden = !isLoading;
+}
 });
