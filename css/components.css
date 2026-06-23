@@ -14,19 +14,21 @@
 
 #search-input {
     width: 100%;
-    padding: 0.75rem 2.5rem 0.75rem 1rem;
-    border: 1px solid var(--border-color);
+    padding: 0.85rem 2.5rem 0.85rem 1.25rem; /* Slightly larger hit area */
+    border: 2px solid transparent; /* Prevents layout shift on focus compared to 1px */
     border-radius: 30px;
     background-color: var(--bg-card);
     color: var(--text-main);
     font-size: 0.95rem;
     outline: none;
-    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #search-input:focus {
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(13, 131, 144, 0.15);
+    background-color: var(--bg-app);
+    box-shadow: 0 4px 12px rgba(13, 131, 144, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.01);
 }
 
 /* Clear Input Interaction Button */
@@ -38,11 +40,14 @@
     font-size: 1.25rem;
     color: var(--text-muted);
     cursor: pointer;
-    padding: 2px;
+    padding: 4px;
+    border-radius: 50%;
+    transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .clear-btn:hover {
     color: var(--text-main);
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Action Execution Button */
@@ -56,25 +61,32 @@
     border-radius: 30px;
     padding: 0.75rem 1.5rem;
     font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.05em;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
     cursor: pointer;
-    transition: opacity var(--transition-speed);
+    box-shadow: 0 4px 12px rgba(13, 131, 144, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .search-submit-btn:hover {
-    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(13, 131, 144, 0.35);
+}
+
+.search-submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(13, 131, 144, 0.2);
 }
 
 /* Async Loading Indicator Component */
 .spinner {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border: 4px solid var(--border-color);
     border-top-color: var(--accent-color);
     border-radius: 50%;
-    margin: 1.5rem auto 0 auto;
-    animation: spin 1s linear infinite;
+    margin: 2rem auto;
+    animation: spin 0.8s cubic-bezier(0.6, 0.2, 0.4, 0.8) infinite;
 }
 
 @keyframes spin {
@@ -83,20 +95,27 @@
 
 /* Inline Dynamic Application Error Banners */
 .error-banner {
-    background-color: #fee2e2;
-    border: 1px solid #f87171;
+    background-color: #fef2f2;
+    border-left: 4px solid #ef4444;
     color: #991b1b;
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.25rem;
     border-radius: 8px;
     margin-top: 1rem;
-    font-size: 0.9rem;
-    text-align: center;
+    font-size: 0.95rem;
+    text-align: left; /* Reads better than center for errors */
     font-weight: 500;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.1);
+    animation: slideDown 0.3s ease-out forwards;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 html[data-theme="dark"] .error-banner {
-    background-color: #451a03;
-    border: 1px solid #b45309;
+    background-color: rgba(69, 26, 3, 0.4);
+    border-left: 4px solid #f59e0b;
     color: #fef3c7;
 }
 
@@ -104,29 +123,36 @@ html[data-theme="dark"] .error-banner {
 .current-weather-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 1.75rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+    border-radius: 20px; /* Slightly rounder */
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: background-color var(--transition-speed), border-color var(--transition-speed), transform 0.3s ease;
+}
+
+.current-weather-card:hover {
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03);
 }
 
 .current-weather-card.container-empty {
     text-align: center;
     color: var(--text-muted);
-    padding: 3rem 1.5rem;
+    padding: 4rem 2rem;
+    border-style: dashed;
+    border-width: 2px;
 }
 
 /* Card Header Information */
 .weather-card-header h2 {
-    font-size: 1.65rem;
+    font-size: 1.75rem;
     color: var(--text-main);
-    font-weight: 700;
+    font-weight: 800;
+    letter-spacing: -0.02em;
 }
 
 .weather-card-header p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
-    margin-top: 0.25rem;
+    margin-top: 0.35rem;
 }
 
 /* Prominent Temperature Display Area */
@@ -134,25 +160,27 @@ html[data-theme="dark"] .error-banner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 1.5rem 0;
-    padding: 1.25rem 1.5rem;
-    border-radius: 12px;
+    margin: 2rem 0;
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.02);
     transition: background-color var(--transition-speed);
 }
 
 .temp-main {
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: 800;
     line-height: 1;
     color: var(--text-main);
+    letter-spacing: -0.03em;
 }
 
 .temp-unit {
-    font-size: 1.75rem;
-    font-weight: 500;
+    font-size: 1.85rem;
+    font-weight: 600;
     color: var(--text-muted);
-    vertical-align: super;
-    margin-left: 2px;
+    vertical-align: top; /* Better alignment than super */
+    margin-left: 4px;
 }
 
 /* Condition Icon & Text Layout */
@@ -160,79 +188,88 @@ html[data-theme="dark"] .error-banner {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.25rem;
+    gap: 0.35rem;
 }
 
 .weather-condition-icon svg {
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     stroke: var(--text-main);
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
 #cw-condition-text {
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-weight: 700;
+    font-size: 1.15rem;
     color: var(--text-main);
+    text-transform: capitalize;
 }
 
 /* Dynamic Temperature Accent Token Classes */
 .temp-cold {
-    background-color: rgba(56, 189, 248, 0.12);
-    border-left: 5px solid #38bdf8;
+    background-color: rgba(56, 189, 248, 0.08);
+    border-left: 6px solid #38bdf8;
 }
 .temp-neutral {
-    background-color: rgba(16, 185, 129, 0.12);
-    border-left: 5px solid #10b981;
+    background-color: rgba(16, 185, 129, 0.08);
+    border-left: 6px solid #10b981;
 }
 .temp-hot {
-    background-color: rgba(249, 115, 22, 0.12);
-    border-left: 5px solid #f97316;
+    background-color: rgba(249, 115, 22, 0.08);
+    border-left: 6px solid #f97316;
 }
 
 /* Lower Metric Badges Grid Layout */
 .weather-stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-    margin-top: 1.25rem;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
 
 .stat-badge {
     background-color: var(--bg-app);
     border: 1px solid var(--border-color);
-    padding: 0.75rem;
-    border-radius: 10px;
+    padding: 1rem;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+    gap: 0.35rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.stat-badge:hover {
+    background-color: var(--bg-card);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .stat-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.02em;
-    font-weight: 500;
+    letter-spacing: 0.05em;
+    font-weight: 600;
 }
 
 .stat-value {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--text-main);
 }
+
 /* --- Forecast Section Layouts --- */
 .forecast-section h3, .insights-section h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
     color: var(--text-main);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
 }
 
 .forecast-container {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.75rem;
     width: 100%;
 }
 
@@ -240,52 +277,67 @@ html[data-theme="dark"] .error-banner {
     flex: 1;
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1rem 0.5rem;
+    border-radius: 16px;
+    padding: 1.25rem 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     text-align: center;
-    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.forecast-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: var(--accent-color);
 }
 
 /* Distinct Highlighting Rules for Today's Card Frame */
 .today-card {
-    background-color: rgba(13, 131, 144, 0.06);
+    background-color: rgba(13, 131, 144, 0.04);
     border: 2px solid var(--accent-color);
 }
 
 .fc-day {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--text-muted);
+    text-transform: uppercase;
 }
 
 .today-card .fc-day {
     color: var(--accent-color);
+    font-weight: 800;
 }
 
 .fc-icon svg {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     stroke: var(--text-main);
+    transition: transform 0.3s ease;
+}
+
+.forecast-card:hover .fc-icon svg {
+    transform: scale(1.1);
 }
 
 .fc-temps {
     display: flex;
     gap: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 /* Visual emphasis on high temperature over low temperature */
 .temp-high {
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text-main);
 }
 
 .temp-low {
-    font-weight: 400;
+    font-weight: 500;
     color: var(--text-muted);
 }
 
@@ -293,10 +345,11 @@ html[data-theme="dark"] .error-banner {
 .insights-container {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 0.5rem 1.25rem;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
     transition: background-color var(--transition-speed), border-color var(--transition-speed);
 }
 
@@ -304,8 +357,21 @@ html[data-theme="dark"] .error-banner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.85rem 0;
+    padding: 1rem 0.5rem;
     border-bottom: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    margin: 0.25rem 0;
+}
+
+.hourly-row:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+html[data-theme="dark"] .hourly-row:hover {
+    background-color: rgba(255, 255, 255, 0.03);
 }
 
 .hourly-row:last-child {
@@ -314,9 +380,9 @@ html[data-theme="dark"] .error-banner {
 
 .hr-time {
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-muted);
-    width: 50px;
+    width: 60px;
 }
 
 .hr-condition {
@@ -328,21 +394,21 @@ html[data-theme="dark"] .error-banner {
 }
 
 .hr-icon svg {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     stroke: var(--text-muted);
     display: block;
 }
 
 .hr-text {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-main);
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .hr-temp {
-    font-size: 0.95rem;
-    font-weight: 700;
+    font-size: 1.05rem;
+    font-weight: 800;
     color: var(--text-main);
     text-align: right;
     width: 60px;

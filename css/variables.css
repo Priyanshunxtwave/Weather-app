@@ -1,26 +1,42 @@
 /* Default Design Tokens (Light Theme) */
 :root, html[data-theme="light"] {
-    --bg-app: #f4f7f9;
-    --bg-header: #4c4465;
+    /* App Background - Fresher, very subtle cool tint */
+    --bg-app: #f4f7fb; 
+    
+    /* Header - Swapped muddy purple for a sleek, premium dark slate */
+    --bg-header: #0f172a; 
     --text-header: #ffffff;
-    --text-header-muted: #bdaec6;
+    --text-header-muted: #94a3b8;
+    
+    /* Cards & Content */
     --bg-card: #ffffff;
-    --text-main: #2d3748;
-    --text-muted: #718096;
+    --text-main: #1e293b; /* Slightly deeper slate for sharper readability */
+    --text-muted: #64748b;
     --border-color: #e2e8f0;
-    --accent-color: #0d8390;
+    
+    /* Accent - A slightly more vibrant, modern weather cyan */
+    --accent-color: #0891b2; 
+    
+    /* Interactions */
     --transition-speed: 0.3s;
 }
 
 /* Dark Theme Tokens Override */
 html[data-theme="dark"] {
-    --bg-app: #0f172a;
-    --bg-header: #1e293b;
+    /* App Background - Deepened slightly for better "lights out" contrast */
+    --bg-app: #0b1120; 
+    
+    /* Header */
+    --bg-header: #0f172a; 
     --text-header: #f8fafc;
     --text-header-muted: #94a3b8;
-    --bg-card: #1e293b;
-    --text-main: #f1f5f9;
+    
+    /* Cards & Content */
+    --bg-card: #162032; /* Rich dark slate */
+    --text-main: #f8fafc; /* Brighter white for high contrast */
     --text-muted: #94a3b8;
-    --border-color: #334155;
-    --accent-color: #38bdf8;
+    --border-color: #2b3b54; /* Softer, better blended borders */
+    
+    /* Accent - Vibrant sky blue, perfect for dark mode */
+    --accent-color: #38bdf8; 
 }
