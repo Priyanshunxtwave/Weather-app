@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="header-container">
+            <h1 class="logo">Weather App</h1>
+            <nav class="nav-links">
+                <a href="#" class="nav-link active">Dashboard</a>
+                <a href="#" class="nav-link disabled">Map</a>
+                <a href="#" class="nav-link disabled">Education</a>
+                <a href="#" class="nav-link disabled">Historical</a>
+            </nav>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-layout">
+        
+        <section class="search-section card-placeholder">
+            <p>[ Search Bar & Clear Button Placeholder ]</p>
+        </section>
+
+        <section class="current-weather-section card-placeholder">
+            <h2>Copenhagen, Denmark</h2>
+            <p>[ Current Weather Details, Stats Badges, & Date Placeholder ]</p>
+        </section>
+
+        <section class="forecast-section card-placeholder">
+            <h3>5-Day Forecast</h3>
+            <p>[ Forecast Cards Strip Placeholder ]</p>
+        </section>
+
+        <section class="insights-section card-placeholder">
+            <h3>Hourly Micro-Data Insights</h3>
+            <p>[ 6 Hourly Rows Placeholder ]</p>
+        </section>
+
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Weather App. Precision Weather Education.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> &middot; 
+                <a href="#">Terms of Service</a> &middot; 
+                <a href="#">Scientific Data Sources</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+/* Default Design Tokens (Light Theme) */
+:root, html[data-theme="light"] {
+    --bg-app: #f4f7f9;
+    --bg-header: #4c4465;
+    --text-header: #ffffff;
+    --text-header-muted: #bdaec6;
+    --bg-card: #ffffff;
+    --text-main: #2d3748;
+    --text-muted: #718096;
+    --border-color: #e2e8f0;
+    --accent-color: #0d8390;
+    --transition-speed: 0.3s;
+}
+
+/* Dark Theme Tokens Override */
+html[data-theme="dark"] {
+    --bg-app: #0f172a;
+    --bg-header: #1e293b;
+    --text-header: #f8fafc;
+    --text-header-muted: #94a3b8;
+    --bg-card: #1e293b;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+    --accent-color: #38bdf8;
+}
