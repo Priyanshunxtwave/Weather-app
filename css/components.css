@@ -221,3 +221,129 @@ html[data-theme="dark"] .error-banner {
     font-weight: 700;
     color: var(--text-main);
 }
+/* --- Forecast Section Layouts --- */
+.forecast-section h3, .insights-section h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-main);
+    letter-spacing: 0.02em;
+}
+
+.forecast-container {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.forecast-card {
+    flex: 1;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+
+/* Distinct Highlighting Rules for Today's Card Frame */
+.today-card {
+    background-color: rgba(13, 131, 144, 0.06);
+    border: 2px solid var(--accent-color);
+}
+
+.fc-day {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.today-card .fc-day {
+    color: var(--accent-color);
+}
+
+.fc-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--text-main);
+}
+
+.fc-temps {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Visual emphasis on high temperature over low temperature */
+.temp-high {
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.temp-low {
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+/* --- Hourly Insights Container Layouts --- */
+.insights-container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 0.5rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+
+.hourly-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hourly-row:last-child {
+    border-bottom: none;
+}
+
+.hr-time {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    width: 50px;
+}
+
+.hr-condition {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    padding: 0 1rem;
+}
+
+.hr-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text-muted);
+    display: block;
+}
+
+.hr-text {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.hr-temp {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-main);
+    text-align: right;
+    width: 60px;
+}

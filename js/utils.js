@@ -20,7 +20,6 @@ const WeatherUtils = {
             71: { text: "Light Snow", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5L7 19M19 17L5 7"/></svg>` },
             95: { text: "Thunderstorm", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 11a5 5 0 0 0-4-8 4 4 0 0 0-3 1 4 4 0 0 0-4 3 5 5 0 0 0 1 10h12a4 4 0 0 0 2-7.7z"/><path d="m13 12-3 5h4l-2 5"/></svg>` }
         };
-        // Fallback for codes not explicitly assigned above
         return mappings[code] || { text: "Meteo Conditions", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>` };
     },
 
@@ -43,5 +42,21 @@ const WeatherUtils = {
             month: 'long',
             day: 'numeric'
         });
+    }, // <-- Added the correct object separator comma here
+
+    /**
+     * Convert an ISO date string (YYYY-MM-DD) into a short day string (e.g., "MON")
+     */
+    formatShortDay(dateStr) {
+        const date = new Date(dateStr + 'T00:00:00'); 
+        return date.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
+    },
+
+    /**
+     * Convert an ISO date-time string (YYYY-MM-DDTHH:MM) into a 24h clock string (e.g., "14:00")
+     */
+    formatShortHour(dateTimeStr) {
+        const date = new Date(dateTimeStr);
+        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
     }
 };

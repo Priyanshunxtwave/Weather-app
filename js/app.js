@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- MILESTONE 3 HANDOFF ---
             // Direct the payload arrays directly into our fresh presentation viewer layer
             UI.renderCurrentWeather(locationData, weatherData);
+            UI.renderForecast(weatherData.daily);
+            UI.renderHourlyInsights(weatherData.hourly);
             
         } catch (error) {
             console.error('Execution Chain Exception:', error.message);
