@@ -115,5 +115,32 @@ const UI = {
             `;
             this.insightsContainer.insertAdjacentHTML('beforeend', rowHTML);
         }
+    },
+    /**
+     * Revert the entire user interface back to its pristine empty state
+     */
+    resetUI() {
+        // 1. Clear text contents from placeholders
+        this.locationText.textContent = '---, ---';
+        this.dateText.textContent = '---';
+        this.temperatureText.textContent = '--';
+        this.conditionText.textContent = '---';
+        this.iconContainer.innerHTML = '';
+        
+        this.humidityValue.textContent = '--%';
+        this.windValue.textContent = '-- km/h';
+        this.pressureValue.textContent = '---- hPa';
+
+        // 2. Wipe dynamic card containers clean
+        this.forecastContainer.innerHTML = '';
+        this.insightsContainer.innerHTML = '';
+
+        // 3. Reset background color metrics to neutral state
+        this.tempArea.className = 'weather-temp-display temp-neutral';
+
+        // 4. Swap element visibility toggles back to empty presentation mode
+        this.populatedState.hidden = true;
+        this.card.classList.add('container-empty');
+        this.emptyState.hidden = false;
     }
 };

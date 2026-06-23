@@ -1,9 +1,18 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const searchForm = document.getElementById('search-form');
     const searchInput = document.getElementById('search-input');
+    const searchSubmitBtn = searchForm.querySelector('.search-submit-btn');
     const clearSearchBtn = document.getElementById('clear-search-btn');
     const loadingSpinner = document.getElementById('loading-spinner');
     const errorBanner = document.getElementById('error-banner');
+
+    // --- APPLICATION STARTUP SEQUENCE ---
+    const savedLocation = StorageManager.getSavedLocation();
+    if (savedLocation) {
+        searchInput.value = savedLocation.name;
+        clearSearchBtn.hidden = false;
+        await loadWeatherPipeline(savedLocation);
+    }
 
     searchInput.addEventListener('input', () => {
         clearSearchBtn.hidden = searchInput.value.trim() === '';
@@ -13,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.value = '';
         clearSearchBtn.hidden = true;
         errorBanner.hidden = true;
+        StorageManager.clearLocation();
+        UI.resetUI();
         searchInput.focus();
     });
 
@@ -21,25 +32,48 @@ document.addEventListener('DOMContentLoaded', () => {
         const query = searchInput.value.trim();
         if (!query) return;
 
-        errorBanner.hidden = true;
-        loadingSpinner.hidden = false;
+        toggleFormState(true);
 
         try {
             const locationData = await OpenMeteoAPI.fetchCoordinates(query);
-            const weatherData = await OpenMeteoAPI.fetchWeatherData(locationData.latitude, locationData.longitude);
-            
-            // --- MILESTONE 3 HANDOFF ---
-            // Direct the payload arrays directly into our fresh presentation viewer layer
-            UI.renderCurrentWeather(locationData, weatherData);
-            UI.renderForecast(weatherData.daily);
-            UI.renderHourlyInsights(weatherData.hourly);
-            
+            StorageManager.saveLocation(locationData);
+            await loadWeatherPipeline(locationData);
         } catch (error) {
             console.error('Execution Chain Exception:', error.message);
             errorBanner.textContent = error.message;
             errorBanner.hidden = false;
         } finally {
-            loadingSpinner.hidden = true;
+            toggleFormState(false);
         }
     });
+
+    /**
+     * Reusable async data lookup engine wrapper
+     */
+    async function loadWeatherPipeline(locationObj) {
+        errorBanner.hidden = true;
+        loadingSpinner.hidden = false;
+        try {
+            const weatherData = await OpenMeteoAPI.fetchWeatherData(locationObj.latitude, locationObj.longitude);
+            UI.renderCurrentWeather(locationObj, weatherData);
+            UI.renderForecast(weatherData.daily);
+            UI.renderHourlyInsights(weatherData.hourly);
+        } catch (error) {
+            errorBanner.textContent = error.message;
+            errorBanner.hidden = false;
+        } finally {
+            loadingSpinner.hidden = true;
+        }
+    }
+
+    /**
+     * Toggle element interactive capabilities during active operations
+     */
+    function toggleFormState(isLoading) {
+        searchInput.disabled = isLoading;
+        searchSubmitBtn.disabled = isLoading;
+        clearSearchBtn.disabled = isLoading;
+        errorBanner.hidden = true;
+        loadingSpinner.hidden = !isLoading;
+    }
 });
