@@ -8,6 +8,23 @@ const OpenMeteoAPI = {
     /**
      * Step 1: Resolve plain text city string into exact geographical coordinates
      */
+    /**
+     * Search and retrieve an array of matching city locations matching a partial search term
+     */
+    async fetchCitySuggestions(query) {
+        if (!query || query.length < 2) return [];
+        
+        const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5&language=en&format=json`;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Failed to resolve suggestions.');
+            const data = await response.json();
+            return data.results || [];
+        } catch (error) {
+            console.error('Suggestions Fetch Error:', error);
+            return [];
+        }
+    },
     async fetchCoordinates(cityName) {
         const url = `${this.GEO_BASE_URL}?name=${encodeURIComponent(cityName)}&count=1&language=en&format=json`;
         
