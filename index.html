@@ -6,7 +6,7 @@
     <title>Weather App</title>
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
-</head>
+    <link rel="stylesheet" href="css/components.css"> </head>
 <body>
 
     <header class="app-header">
@@ -21,7 +21,6 @@
             <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
                 <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="4"></circle>
-                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
                 </svg>
             </button>
         </div>
@@ -29,13 +28,25 @@
 
     <main class="main-layout">
         
-        <section class="search-section card-placeholder">
-            <p>[ Search Bar & Clear Button Placeholder ]</p>
+        <section class="search-section">
+            <form id="search-form" class="search-form">
+                <div class="search-input-wrapper">
+                    <input type="text" id="search-input" placeholder="Search for a city or meteorological station..." autocomplete="off" required>
+                    <button type="button" id="clear-search-btn" class="clear-btn" aria-label="Clear Search" hidden>&times;</button>
+                </div>
+                <button type="submit" class="search-submit-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    SEARCH
+                </button>
+            </form>
+
+            <div id="loading-spinner" class="spinner" hidden></div>
+            <div id="error-banner" class="error-banner" hidden></div>
         </section>
 
         <section class="current-weather-section card-placeholder">
-            <h2>Copenhagen, Denmark</h2>
-            <p>[ Current Weather Details, Stats Badges, & Date Placeholder ]</p>
+            <h2>Weather Display Area</h2>
+            <p>[ Search for a city above to populate real-time weather information ]</p>
         </section>
 
         <section class="forecast-section card-placeholder">
@@ -62,5 +73,7 @@
     </footer>
 
     <script src="js/theme.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
